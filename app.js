@@ -67,7 +67,7 @@ server.report(function(callback) {
 // start the server
 var config = {
     "setup": "single",
-    "Name": "ERS Assets Server",
+    "name": "ERS Assets Server",
     "virtualHost": {
         "enabled": false
     },
@@ -84,26 +84,19 @@ var config = {
             "region": "us-west-2"
         }  
     },
-    "cors": {
-        "enabled": true,
-        "origin": null,
-        "methods": "GET, POST, PUT, DELETE, OPTIONS",
-        "headers": "X-Forwarded-Host, X-Requested-With, Content-Type, Authorization, Origin, X-Requested-With, X-Prototype-Version, Cache-Control, Pragma, X-CSRF-TOKEN, X-XSRF-TOKEN",
-        "credentials": false
-    },
     "perf": {
         "enabled": true,
         "paths": [
             {
             "regex": "/static/.*",
             "cache": {
-                "seconds": 1
+                "seconds": 1200
                 }
             },
             {
             "regex": "/preview/.*",
             "cache": {
-                "seconds": 1
+                "seconds": 1200
                 }
             }
         ]

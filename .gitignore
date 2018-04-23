@@ -1,3 +1,4 @@
 .env
 gitana.json
 node_modules
+.vscode/
