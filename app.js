@@ -1,10 +1,10 @@
-var server = require('cloudcms-server/server');
-var dotenv = require('dotenv');
+const server = require('cloudcms-server/server');
+const dotenv = require('dotenv');
 
 dotenv.load();
 
 // after
-server.after(function(app, callback) {
+server.after((app, callback) => {
     callback();
 });
 
@@ -15,13 +15,13 @@ process.env.CLOUDCMS_CACHE_TYPE = 'memory';
 
 
 // report
-server.report(function(callback) {
+server.report(callback => {
 
     console.log('');
     console.log(`Cloud CMS Presentation Server started! (v${process.env.CLOUDCMS_APPSERVER_PACKAGE_VERSION})`)
     console.log('');
 
-    var cpuCount = require('os').cpus().length;
+    const cpuCount = require('os').cpus().length;
 
     // provide some debug info
     console.log('');
@@ -46,10 +46,6 @@ server.report(function(callback) {
     console.log(`Web Server: http://localhost:${process.env.PORT}`);
     console.log('');
 
-    console.log(`Node Version: ${process.version}`);
-    console.log(`Temp Directory: ${process.env.CLOUDCMS_TEMPDIR_PATH}`);
-
-
     process.env.CLOUDCMS_VIRTUAL_HOST
         ? console.log(`Mode: Single Virtual Host (${process.env.CLOUDCMS_VIRTUAL_HOST})`)
         : process.env.CLOUDCMS_VIRTUAL_HOST_DOMAIN
@@ -63,7 +59,7 @@ server.report(function(callback) {
 });
 
 // start the server
-var config = {
+const config = {
     setup: 'single',
     name: 'ERS Assets Server',
     virtualHost: {
@@ -88,13 +84,13 @@ var config = {
             {
             regex: '/static/.*',
             cache: {
-                seconds: 1200
+                seconds: 100800
                 }
             },
             {
             regex: '/preview/.*',
             cache: {
-                'seconds': 1200
+                'seconds': 100800
                 }
             }
         ]
