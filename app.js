@@ -8,7 +8,7 @@ server.after((app, callback) => {
     callback();
 });
 
-process.env.PORT = 4040;
+process.env.PORT = 4041;
 process.env.NODE_ENV = 'production';
 process.env.CLOUDCMS_APPSERVER_MODE = 'production';
 process.env.CLOUDCMS_CACHE_TYPE = 'memory';
@@ -46,11 +46,11 @@ server.report(callback => {
     console.log(`Web Server: http://localhost:${process.env.PORT}`);
     console.log('');
 
-    process.env.CLOUDCMS_VIRTUAL_HOST
-        ? console.log(`Mode: Single Virtual Host (${process.env.CLOUDCMS_VIRTUAL_HOST})`)
-        : process.env.CLOUDCMS_VIRTUAL_HOST_DOMAIN
-        ? console.log(`Mode: Multiple Virtual Hosts (*. ${process.env.CLOUDCMS_VIRTUAL_HOST_DOMAIN})`)
-        : console.log(`Mode: Standalone`)
+    process.env.CLOUDCMS_VIRTUAL_HOST ?
+        console.log(`Mode: Single Virtual Host (${process.env.CLOUDCMS_VIRTUAL_HOST})`) :
+        process.env.CLOUDCMS_VIRTUAL_HOST_DOMAIN ?
+        console.log(`Mode: Multiple Virtual Hosts (*. ${process.env.CLOUDCMS_VIRTUAL_HOST_DOMAIN})`) :
+        console.log(`Mode: Standalone`)
 
     console.log(`Node process running on port: ${process.env.PORT}`);
     console.log('');
@@ -66,35 +66,34 @@ const config = {
         enabled: false
     },
     cache: {
-        enabled: true
+        enabled: false
     },
     notifications: {
         enabled: true,
         type: 'sqs',
         configuration: {
-            queueUrl: 'https://sqs.us-west-2.amazonaws.com/159797139354/CloudCMS-cache',
+            queueUrl: process.env.SQS_ACCESS_QUEUE_URL,
             accessKey: process.env.SQS_ACCESS_KEY,
             secretKey: process.env.SQS_SECRET_KEY,
             region: 'us-west-2'
-        }  
+        }
     },
     perf: {
-        enabled: true,
-        paths: [
-            {
-            regex: '/static/.*',
-            cache: {
-                seconds: 100800
+        enabled: false,
+        paths: [{
+                regex: '/static/.*',
+                cache: {
+                    seconds: 100800
                 }
             },
             {
-            regex: '/preview/.*',
-            cache: {
-                'seconds': 100800
+                regex: '/preview/.*',
+                cache: {
+                    'seconds': 100800
                 }
             }
         ]
-    }    
+    }
 
 };
 
