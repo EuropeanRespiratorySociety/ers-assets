@@ -6,9 +6,9 @@
     "start": "node app"
   },
   "dependencies": {
-    "cloudcms-server": "^0.9.140",
+    "cloudcms-server": "^0.9.210",
     "dotenv": "^5.0.1",
-    "express": "^4.16.3"
+    "express": "^4.17.1"
   },
   "author": {
     "name": "Gitana Software, Inc.",
